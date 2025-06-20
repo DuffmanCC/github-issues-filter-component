@@ -19,6 +19,27 @@ const AuthorFilter = () => {
   }, []);
 
   // todo - render authors
-  return <GithubFilter />;
+  return (
+    <GithubFilter
+      elements={authors}
+      label="Authors"
+      filterFn={(el, query) => el.login.includes(query)}
+      getKey={(el) => el.login}
+    >
+      {(el) => <Author author={el} />}
+    </GithubFilter>
+  );
 };
 export default AuthorFilter;
+
+function Author({ author }) {
+  return (
+    <div className="flex gap-2 items-center">
+      <img
+        src={author.avatar_url}
+        className="size-6 rounded-full object-cover"
+      />
+      <span>{author.login} </span>
+    </div>
+  );
+}
