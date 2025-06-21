@@ -19,7 +19,24 @@ const MilestoneFilter = () => {
   }, []);
 
   // todo - render milestones
-  return <GithubFilter />;
+  return (
+    <GithubFilter
+      elements={milestones}
+      label="Milestones"
+      filterFn={(el, query) => el.title.includes(query)}
+      getKey={(el) => el.title}
+    >
+      {(el) => <Milestone milestone={el} />}
+    </GithubFilter>
+  );
 };
 
 export default MilestoneFilter;
+
+function Milestone({ milestone }) {
+  return (
+    <div className="flex gap-2 items-center">
+      <span>{milestone.title}</span>
+    </div>
+  );
+}

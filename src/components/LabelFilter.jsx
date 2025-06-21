@@ -19,7 +19,28 @@ const LabelFilter = () => {
   }, []);
 
   // todo - render labels
-  return <GithubFilter />;
+  return (
+    <GithubFilter
+      elements={labels}
+      label="Labels"
+      filterFn={(el, query) => el.name.includes(query)}
+      getKey={(el) => el.name}
+    >
+      {(el) => <Label label={el} />}
+    </GithubFilter>
+  );
 };
 
 export default LabelFilter;
+
+function Label({ label }) {
+  return (
+    <div className="flex gap-2 items-center">
+      <span
+        className="size-6 rounded-full border"
+        style={{ backgroundColor: `#${label.color}` }}
+      />
+      <span>{label.name}</span>
+    </div>
+  );
+}
